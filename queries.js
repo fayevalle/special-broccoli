@@ -24,7 +24,7 @@ module.exports = {
 
 
 function getAllPuppies(req, res, next) {
-  db.any('select * from kiosk_docu_request')
+  db.any('select * from reports_tbl')
     .then(function (data) {
       res.status(200)
         .json({
