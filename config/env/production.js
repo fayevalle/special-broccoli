@@ -47,8 +47,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-       adapter: 'sails-postgresql',
-       url: 'postgres://veuwjmxaaumhdg:d823acef53b2f40f86068f78aa4f8cd0c4dad22ed95306a9e973ab7f224bc59c@ec2-50-17-203-51.compute-1.amazonaws.com:5432/d9ocjt8uchhaft',
+      // adapter: 'sails-mysql',
+      // url: 'mysql://user:password@host:port/database',
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
       //  ||   sensitive credentials like `url` using an environment variable.
@@ -70,7 +70,7 @@ module.exports = {
       * https://sailsjs.com/config/datastores                                     *
       *                                                                           *
       ****************************************************************************/
-       ssl: true,
+      // ssl: true,
 
     },
 
@@ -148,9 +148,9 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cors: {
-       allowOrigins: [
-         'https://arcane-basin-81106.herokuapp.com'
-       ]
+      // allowOrigins: [
+      //   'https://example.com',
+      // ]
     },
 
   },
@@ -221,7 +221,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cookie: {
-       secure: true,
+      // secure: true,
       maxAge: 24 * 60 * 60 * 1000,  // 24 hours
     },
 
@@ -250,10 +250,10 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-     onlyAllowOrigins: [
-       'https://arcane-basin-81106.herokuapp.com'
+    // onlyAllowOrigins: [
+    //   'https://example.com',
     //   'https://staging.example.com',
-     ],
+    // ],
 
 
     /***************************************************************************
@@ -322,7 +322,7 @@ module.exports = {
     * (https://sailsjs.com/config/http)                                        *
     *                                                                          *
     ***************************************************************************/
-     trustProxy: true,
+    // trustProxy: true,
 
   },
 
@@ -371,8 +371,8 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   custom: {
-    baseUrl: 'https://arcane-basin-81106.herokuapp.com',
-    internalEmailAddress: 'christinefayevalle912@gmail.com',
+    baseUrl: 'https://example.com',
+    internalEmailAddress: 'support@example.com',
 
     // mailgunDomain: 'mg.example.com',
     // mailgunSecret: 'key-prod_fake_bd32301385130a0bafe030c',
