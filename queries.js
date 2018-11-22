@@ -14,9 +14,9 @@ var db = pgp(connectionString);
 // add query functions
 
 module.exports = {
-  getAllPuppies: getAllPuppies
+  getAllPuppies: getAllPuppies,
 //  getSinglePuppy: getSinglePuppy,
- // createPuppy: createPuppy,
+ createPuppy: createPuppy
  // updatePuppy: updatePuppy,
   //removePuppy: removePuppy
 };
@@ -24,7 +24,7 @@ module.exports = {
 
 
 function getAllPuppies(req, res, next) {
-  db.any('select * from transactions_tbl')
+  db.any('select * from kiosk_docu_request')
     .then(function (data) {
       res.status(200)
         .json({
@@ -36,4 +36,22 @@ function getAllPuppies(req, res, next) {
     .catch(function (err) {
       return next(err);
     });
+function createPuppy(req, res, next) {
+  req.body.age = parseInt(req.body.age);
+  db.none('insert into pups(name, breed, age, sex)' +
+      'values(${name}, ${breed}, ${age}, ${sex})',
+    req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Inserted one puppy'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+
 }
