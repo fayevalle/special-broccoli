@@ -24,7 +24,7 @@ module.exports = {
 
 
 function getAllPuppies(req, res, next) {
-  db.any('select * from reports_tbl')
+  db.any('select * from ReportsTbl')
     .then(function (data) {
       res.status(200)
         .json({
@@ -39,7 +39,7 @@ function getAllPuppies(req, res, next) {
 }
 function createPuppy(req, res, next) {
   req.body.age = parseInt(req.body.age);
-  db.none('insert into report_tbls(category, description)' +
+  db.none('insert into ReportsTbl(category, description)' +
       'values(${category}, ${message})',
     req.body)
     .then(function () {
