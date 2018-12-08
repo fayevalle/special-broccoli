@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
 var db = require('../queries');
 
 
-router.get('/api/puppies', db.getAllPuppies);
+//router.get('/api/residents', db.getAllResidents);
 //router.get('/api/puppies/:id', db.getSinglePuppy);
 router.post('/api/puppies', db.createPuppy);
 //router.put('/api/puppies/:id', db.updatePuppy);

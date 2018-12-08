@@ -14,41 +14,75 @@ var db = pgp(connectionString);
 // add query functions
 
 module.exports = {
-  getAllPuppies: getAllPuppies,
-//getSinglePuppy: getSinglePuppy,
-  createPuppy: createPuppy
-//updatePuppy: updatePuppy,
-//removePuppy: removePuppy
+  getAllResidents: getAllResidents,
+  getSingleResident: getSingleResident,
+  createReport: createReport,
+  createMissing: createMissing,
 };
 
 
-function getAllPuppies(req, res, next) {
-  db.any('select * from admin_tbl')
+function getAllResidents(req, res, next) {
+  db.any('select * from residents_tbl')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved ALL puppies'
+          message: 'Retrieved ALL Residents'
         });
     })
     .catch(function (err) {
       return next(err);
     });
 }
-function createPuppy(req, res, next) {
-  req.body.age = parseInt(req.body.age);
-  db.none('insert into admin_tbl(admin_id, username, password)' +
-      'values(${admin_id}, ${username}, ${password})',
-    req.body)
-    .then(function () {
+
+function getSingleResident(req, res, next) {
+  var resID = parseInt(req.params.id);
+  db.one('select * from residents_tbl where residents_id = $1', resID)
+    .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Inserted one puppy'
+          data: data,
+          message: 'Retrieved ONE resident'
         });
     })
     .catch(function (err) {
       return next(err);
     });
+}
+
+function createReport(req, res, next) {
+  req.body.age = parseInt(req.body.age);
+  db.none('insert into report_tbl(id, date, residentID, category, description)' +
+      'values("", ${date}, ${residentID}, ${category}, ${description})',
+    req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Inserted one report'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+  }
+      
+function createMissing(req, res, next) {
+  req.body.age = parseInt(req.body.age);
+  db.none('insert into missing_tbl(id, date, residentID, category, type, name, age, contactno, address, description)' +
+      'values("", ${date}, ${residentID}, ${category}, ${type}, ${name}, ${age}, ${contactno}, ${address}, ${description})',
+    req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Inserted one report'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+
 }
