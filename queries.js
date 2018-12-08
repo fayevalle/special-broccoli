@@ -7,7 +7,7 @@ var options = {
 
 var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
-
+//var connectionString='postgres://localhost:15106/eprofile'
 pgp.pg.defaults.ssl = true;
 var db = pgp(connectionString);
 
@@ -15,16 +15,15 @@ var db = pgp(connectionString);
 
 module.exports = {
   getAllPuppies: getAllPuppies,
-//  getSinglePuppy: getSinglePuppy,
- createPuppy: createPuppy
- // updatePuppy: updatePuppy,
-  //removePuppy: removePuppy
+//getSinglePuppy: getSinglePuppy,
+  createPuppy: createPuppy
+//updatePuppy: updatePuppy,
+//removePuppy: removePuppy
 };
 
 
-
 function getAllPuppies(req, res, next) {
-  db.any('select * from ReportsTbl')
+  db.any('select * from admin_tbl')
     .then(function (data) {
       res.status(200)
         .json({
@@ -39,8 +38,8 @@ function getAllPuppies(req, res, next) {
 }
 function createPuppy(req, res, next) {
   req.body.age = parseInt(req.body.age);
-  db.none('insert into ReportsTbl(category, description)' +
-      'values(${category}, ${message})',
+  db.none('insert into admin_tbl(admin_id, username, password)' +
+      'values(${admin_id}, ${username}, ${password})',
     req.body)
     .then(function () {
       res.status(200)
@@ -53,6 +52,3 @@ function createPuppy(req, res, next) {
       return next(err);
     });
 }
-
-
-
