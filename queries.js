@@ -14,6 +14,7 @@ var db = pgp(connectionString);
 // add query functions
 
 module.exports = {
+<<<<<<< HEAD
   getAllResidents: getAllResidents,
   getSingleResident: getSingleResident,
   createReport: createReport,
@@ -39,6 +40,18 @@ function getAllResidents(req, res, next) {
 function getSingleResident(req, res, next) {
   var resID = parseInt(req.params.id);
   db.one('select * from residents_tbl where residents_id = $1', resID)
+=======
+  getAllPuppies: getAllPuppies,
+//getSinglePuppy: getSinglePuppy,
+  createPuppy: createPuppy
+//updatePuppy: updatePuppy,
+//removePuppy: removePuppy
+};
+
+
+function getAllPuppies(req, res, next) {
+  db.any('select * from admin_tbl')
+>>>>>>> f78ba2c97806ffb4b4a1a81ff887c401f2a4dad0
     .then(function (data) {
       res.status(200)
         .json({
@@ -54,8 +67,13 @@ function getSingleResident(req, res, next) {
 
 function createReport(req, res, next) {
   req.body.age = parseInt(req.body.age);
+<<<<<<< HEAD
   db.none('insert into report_tbl(id, date, residentID, category, description)' +
       'values("", ${date}, ${residentID}, ${category}, ${description})',
+=======
+  db.none('insert into admin_tbl(admin_id, username, password)' +
+      'values(${admin_id}, ${username}, ${password})',
+>>>>>>> f78ba2c97806ffb4b4a1a81ff887c401f2a4dad0
     req.body)
     .then(function () {
       res.status(200)
@@ -84,5 +102,8 @@ function createMissing(req, res, next) {
     .catch(function (err) {
       return next(err);
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> f78ba2c97806ffb4b4a1a81ff887c401f2a4dad0
 }
