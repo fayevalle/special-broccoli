@@ -18,6 +18,7 @@ module.exports = {
   getAllEvents: getAllEvents,
   getAllMissing: getAllMissing,
   getAllWanted: getAllWanted,
+  getAllPuppies:getAllPuppies,
   getSingleResident: getSingleResident,
   createReport: createReport,
   createTransaction: createTransaction,
