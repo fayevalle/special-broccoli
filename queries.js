@@ -14,11 +14,15 @@ var db = pgp(connectionString);
 // add query functions
 
 module.exports = {
-<<<<<<< HEAD
   getAllResidents: getAllResidents,
+  getAllEvents: getAllEvents,
+  getAllMissing: getAllMissing,
+  getAllWanted: getAllWanted,
   getSingleResident: getSingleResident,
   createReport: createReport,
+  createTransaction: createTransaction,
   createMissing: createMissing,
+  updatePassword: updatePassword
 };
 
 
@@ -37,21 +41,69 @@ function getAllResidents(req, res, next) {
     });
 }
 
+function getAllEvents(req, res, next) {
+  db.any('select * from events_tbl')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ALL events'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getAllMissing(req, res, next) {
+  db.any('select * from missing_tbl where category="missing"')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ALL missing'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getAllWanted(req, res, next) {
+  db.any('select * from wanted_tbl')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ALL wanted'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 function getSingleResident(req, res, next) {
   var resID = parseInt(req.params.id);
-  db.one('select * from residents_tbl where residents_id = $1', resID)
-=======
-  getAllPuppies: getAllPuppies,
-//getSinglePuppy: getSinglePuppy,
-  createPuppy: createPuppy
-//updatePuppy: updatePuppy,
-//removePuppy: removePuppy
-};
-
+  db.one('select * from residents_tbl where id = $1', resID)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ONE Resident'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
 
 function getAllPuppies(req, res, next) {
   db.any('select * from admin_tbl')
->>>>>>> f78ba2c97806ffb4b4a1a81ff887c401f2a4dad0
     .then(function (data) {
       res.status(200)
         .json({
@@ -67,13 +119,9 @@ function getAllPuppies(req, res, next) {
 
 function createReport(req, res, next) {
   req.body.age = parseInt(req.body.age);
-<<<<<<< HEAD
+
   db.none('insert into report_tbl(id, date, residentID, category, description)' +
       'values("", ${date}, ${residentID}, ${category}, ${description})',
-=======
-  db.none('insert into admin_tbl(admin_id, username, password)' +
-      'values(${admin_id}, ${username}, ${password})',
->>>>>>> f78ba2c97806ffb4b4a1a81ff887c401f2a4dad0
     req.body)
     .then(function () {
       res.status(200)
@@ -85,8 +133,26 @@ function createReport(req, res, next) {
     .catch(function (err) {
       return next(err);
     });
-  }
-      
+}
+  
+function createReport(req, res, next) {
+  req.body.age = parseInt(req.body.age);
+
+  db.none('insert into transaction_tbl(id, transaction, purpose, others, date_claim, name, date_request)' +
+      'values("", ${transaction}, ${purpose}, ${others}, ${date_claim}, ${name}, ${date_request})',
+    req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Inserted one transaction'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 function createMissing(req, res, next) {
   req.body.age = parseInt(req.body.age);
   db.none('insert into missing_tbl(id, date, residentID, category, type, name, age, contactno, address, description)' +
@@ -102,8 +168,19 @@ function createMissing(req, res, next) {
     .catch(function (err) {
       return next(err);
     });
-<<<<<<< HEAD
+}
 
-=======
->>>>>>> f78ba2c97806ffb4b4a1a81ff887c401f2a4dad0
+function updatePassword(req, res, next) {
+  db.none('update resident_tbl set password=$1 where resident_id=$2',
+    [req.body.password, parseInt(req.params.id)])
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Updated password'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
 }
