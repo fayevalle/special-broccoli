@@ -18,7 +18,7 @@ module.exports = {
   getAllEvents: getAllEvents,
   getAllMissing: getAllMissing,
   getAllWanted: getAllWanted,
-  getAllPuppies:getAllPuppies,
+  getAllPuppies: getAllPuppies,
   getSingleResident: getSingleResident,
   createReport: createReport,
   createTransaction: createTransaction,
@@ -136,7 +136,7 @@ function createReport(req, res, next) {
     });
 }
   
-function createReport(req, res, next) {
+function createTransaction(req, res, next) {
   req.body.age = parseInt(req.body.age);
 
   db.none('insert into transaction_tbl(id, transaction, purpose, others, date_claim, name, date_request)' +
