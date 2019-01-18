@@ -23,6 +23,7 @@ module.exports = {
   createReport: createReport,
   createTransaction: createTransaction,
   createMissing: createMissing,
+  createResident: createResident,
   updatePassword: updatePassword
 };
 
@@ -158,6 +159,23 @@ function createMissing(req, res, next) {
   req.body.age = parseInt(req.body.age);
   db.none('insert into missing_tbl(id, date, residentID, category, type, name, age, contactno, address, description)' +
       'values("", ${date}, ${residentID}, ${category}, ${type}, ${name}, ${age}, ${contactno}, ${address}, ${description})',
+    req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Inserted one report'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function createResident(req, res, next) {
+  req.body.age = parseInt(req.body.age);
+  db.none('insert into residents_tbl(id, lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password)' +
+      'values("", ${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password})',
     req.body)
     .then(function () {
       res.status(200)
