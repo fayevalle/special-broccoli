@@ -28,12 +28,20 @@ var db = require('../queries');
 
 
 
-//router.get('/api/residents', db.getAllResidents);
+router.get('/api/residents', db.getAllResidents);
+router.get('/api/events', db.getAllEvents);
+router.get('/api/missing', db.getAllMissing);
+router.get('/api/wanted', db.getAllWanted);
 router.get('/api/puppies', db.getAllPuppies);
-//router.get('/api/puppies/:id', db.getSinglePuppy);
-router.post('/api/puppies', db.createPuppy);
-//router.put('/api/puppies/:id', db.updatePuppy);
-//router.delete('/api/puppies/:id', db.removePuppy);
+
+router.get('/api/residents/:id', db.getSingleResident);
+
+router.post('/api/residents', db.createresidents);
+router.post('/api/report', db.createReport);
+router.post('/api/missing', db.createMissing);
+router.post('/api/transaction', db.createTransaction);
+
+router.put('/api/password/:id', db.updatePassword);
 
 
 module.exports = router;
