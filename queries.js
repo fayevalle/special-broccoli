@@ -1,13 +1,13 @@
 var promise = require('bluebird');
 
 var options = {
-  // Initialization Options
   promiseLib: promise
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
-//var connectionString='postgres://localhost:15106/eprofile'
+//var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
+//var connectionString='postgres://postgres:1234@localhost:5432/postgres'
+var connectionString = "postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g";
 pgp.pg.defaults.ssl = true;
 var db = pgp(connectionString);
 
@@ -59,7 +59,7 @@ function getAllEvents(req, res, next) {
 }
 
 function getAllMissing(req, res, next) {
-  db.any('select * from missing_tbl where category="missing"')
+  db.any('select * from missing_tbl')
     .then(function (data) {
       res.status(200)
         .json({
