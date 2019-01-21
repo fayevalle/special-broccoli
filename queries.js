@@ -5,9 +5,9 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
-//var connectionString='postgres://postgres:1234@localhost:5432/postgres'
-pgp.pg.defaults.ssl = true;
+//var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
+var connectionString='postgres://postgres:1234@localhost:5432/postgres'
+//pgp.pg.defaults.ssl = true;
 var db = pgp(connectionString);
 
 // add query functions
@@ -122,8 +122,8 @@ function getAllPuppies(req, res, next) {
 function createReport(req, res, next) {
   req.body.age = parseInt(req.body.age);
 
-  db.none('insert into report_tbl(id, date, residentID, category, description)' +
-      'values("", ${date}, ${residentID}, ${category}, ${description})',
+  db.none('insert into report_tbl(date, resident_id, category, message, missing_type, missing_name, missing_age, missing_contact, missing_address)' +
+      'values(${date}, ${residentid}, ${category}, ${message}, ${m_type}, ${m_name}, ${m_age},, ${m_contact}, ${m_address})',
     req.body)
     .then(function () {
       res.status(200)
@@ -191,7 +191,7 @@ function createTest(req, res, next) {
 
 function createResident(req, res, next) {
   req.body.age = parseInt(req.body.age);
-  db.none('insert into residents_tbl(lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password) values(${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password})',
+  db.none('insert into residents_tbl(lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password, code, status) values(${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password}, ${code}, ${status},)',
     req.body)
     .then(function () {
       res.status(200)
