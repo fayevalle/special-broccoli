@@ -190,7 +190,7 @@ function createTest(req, res, next) {
 
 function createResident(req, res, next) {
   req.body.age = parseInt(req.body.age);
-  db.none('insert into residents_tbl(id,lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password, code, status) values('00001',${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password}, ${code}, ${status})',
+  db.none('insert into residents_tbl(lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password, code, status) values(${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password}, ${code}, ${status})',
     req.body)
     .then(function () {
       res.status(200)
