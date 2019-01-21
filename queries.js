@@ -122,8 +122,8 @@ function getAllPuppies(req, res, next) {
 function createReport(req, res, next) {
   req.body.age = parseInt(req.body.age);
 
-  db.none('insert into report_tbl(date, resident_id, category, message, missing_type, missing_name, missing_age, missing_contact, missing_address)' +
-      'values(${date}, ${residentid}, ${category}, ${message}, ${m_type}, ${m_name}, ${m_age},, ${m_contact}, ${m_address})',
+  db.none('insert into report_tbl(date, resident_id, category, description)' +
+      'values(${date}, ${residentid}, ${category}, ${description})',
     req.body)
     .then(function () {
       res.status(200)
@@ -158,7 +158,7 @@ function createTransaction(req, res, next) {
 function createMissing(req, res, next) {
   req.body.age = parseInt(req.body.age);
   db.none('insert into missing_tbl(id, date, residentID, category, type, name, age, contactno, address, description)' +
-      'values("", ${date}, ${residentID}, ${category}, ${type}, ${name}, ${age}, ${contactno}, ${address}, ${description})',
+      'values("", ${date}, ${residentID}, ${description}, ${type}, ${name}, ${age}, ${contactno}, ${address}, ${description})',
     req.body)
     .then(function () {
       res.status(200)
