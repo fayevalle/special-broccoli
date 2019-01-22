@@ -139,8 +139,7 @@ function createReport(req, res, next) {
 function createTransaction(req, res, next) {
   req.body.age = parseInt(req.body.age);
 
-  db.none('insert into transaction_tbl(id, transaction, purpose, others, date_claim, name, date_request)' +
-      'values("", ${transaction}, ${purpose}, ${others}, ${date_claim}, ${name}, ${date_request})',
+  db.none('insert into transaction_tbl(id, transaction, purpose, others, name) values("", ${transaction}, ${purpose}, ${others}, ${name})',
     req.body)
     .then(function () {
       res.status(200)
