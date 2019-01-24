@@ -56,9 +56,14 @@ router.get('/api/wanted', db.getAllWanted);
 router.get('/api/puppies', db.getAllPuppies);
 
 router.get('/api/residents/:id', db.getSingleResident);
+<<<<<<< HEAD
 router.post('/api/test', db.createTest);
 
 router.post('/api/residents', db.createResident);
+=======
+
+router.post('/api/residents', db.createresidents);
+>>>>>>> 1/18/19
 router.post('/api/report', db.createReport);
 router.post('/api/missing', db.createMissing);
 router.post('/api/transaction', db.createTransaction);
