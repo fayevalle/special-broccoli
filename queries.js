@@ -1,21 +1,13 @@
 var promise = require('bluebird');
 
 var options = {
-<<<<<<< HEAD
-=======
-  // Initialization Options
->>>>>>> 1/18/19
   promiseLib: promise
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
-<<<<<<< HEAD
-//var connectionString='postgres://postgres:1234@localhost:5432/postgres'
-=======
-//var connectionString='postgres://localhost:15106/eprofile'
->>>>>>> 1/18/19
-pgp.pg.defaults.ssl = true;
+//var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
+var connectionString='postgres://postgres:1234@localhost:5432/postgres'
+//pgp.pg.defaults.ssl = true;
 var db = pgp(connectionString);
 
 // add query functions
@@ -31,12 +23,8 @@ module.exports = {
   createTransaction: createTransaction,
   createMissing: createMissing,
   createResident: createResident,
-<<<<<<< HEAD
   updatePassword: updatePassword,
   createTest: createTest
-=======
-  updatePassword: updatePassword
->>>>>>> 1/18/19
 };
 
 
@@ -71,11 +59,7 @@ function getAllEvents(req, res, next) {
 }
 
 function getAllMissing(req, res, next) {
-<<<<<<< HEAD
   db.any('select * from missing_tbl')
-=======
-  db.any('select * from missing_tbl where category="missing"')
->>>>>>> 1/18/19
     .then(function (data) {
       res.status(200)
         .json({
@@ -128,11 +112,7 @@ function getAllPuppies(req, res, next) {
           status: 'success',
           data: data,
           message: 'Retrieved ONE resident'
-<<<<<<< HEAD
       });
-=======
-        });
->>>>>>> 1/18/19
     })
     .catch(function (err) {
       return next(err);
@@ -140,14 +120,7 @@ function getAllPuppies(req, res, next) {
 }
 
 function createReport(req, res, next) {
-  req.body.age = parseInt(req.body.age);
-
-<<<<<<< HEAD
-  db.none('insert into reports_tbl(id, date, resident_id, category, description) values(${id}, ${date}, ${resident_id}, ${category}, ${description})',
-=======
-  db.none('insert into report_tbl(id, date, residentID, category, description)' +
-      'values("", ${date}, ${residentID}, ${category}, ${description})',
->>>>>>> 1/18/19
+  db.none('insert into report_tbl(date, email, category, description)values(${date}, ${email}, ${category}, ${description})',
     req.body)
     .then(function () {
       res.status(200)
@@ -162,14 +135,7 @@ function createReport(req, res, next) {
 }
   
 function createTransaction(req, res, next) {
-  req.body.age = parseInt(req.body.age);
-
-<<<<<<< HEAD
-  db.none('insert into transaction_tbl(id, transaction, purpose, others, name) values("", ${transaction}, ${purpose}, ${others}, ${name})',
-=======
-  db.none('insert into transaction_tbl(id, transaction, purpose, others, date_claim, name, date_request)' +
-      'values("", ${transaction}, ${purpose}, ${others}, ${date_claim}, ${name}, ${date_request})',
->>>>>>> 1/18/19
+   db.none('insert into transaction_tbl(transaction, purpose, others, date_claim, name, date_request) values (${transaction}, ${purpose}, ${others}, ${date_claim}, ${name}, ${date_request})',
     req.body)
     .then(function () {
       res.status(200)
@@ -184,13 +150,7 @@ function createTransaction(req, res, next) {
 }
 
 function createMissing(req, res, next) {
-  req.body.age = parseInt(req.body.age);
-  db.none('insert into missing_tbl(id, date, residentID, category, type, name, age, contactno, address, description)' +
-<<<<<<< HEAD
-      'values("", ${date}, ${residentID}, ${description}, ${type}, ${name}, ${age}, ${contactno}, ${address}, ${description})',
-=======
-      'values("", ${date}, ${residentID}, ${category}, ${type}, ${name}, ${age}, ${contactno}, ${address}, ${description})',
->>>>>>> 1/18/19
+  db.none('insert into missing_tbl(date, email, missing_type, missing_name, missing_age, contact_number, address, description) values (${date}, ${email}, ${missing_type}, ${missing_name}, ${missing_age}, ${contact_number}, ${address}, ${description})',
     req.body)
     .then(function () {
       res.status(200)
@@ -204,7 +164,6 @@ function createMissing(req, res, next) {
     });
 }
 
-<<<<<<< HEAD
 
 function createTest(req, res, next) {
   req.body.age = parseInt(req.body.age);
@@ -223,24 +182,13 @@ function createTest(req, res, next) {
 }
 
 function createResident(req, res, next) {
-  req.body.age = parseInt(req.body.age);
-  db.none('insert into residents_tbl(lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password, code, status) values(${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password}, ${code}, ${status})',
-=======
-function createResident(req, res, next) {
-  req.body.age = parseInt(req.body.age);
-  db.none('insert into residents_tbl(id, lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password)' +
-      'values("", ${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password})',
->>>>>>> 1/18/19
+  db.none('insert into residents_tbl(lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password, code, status) values (${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password}, ${code}, ${status},)',
     req.body)
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-<<<<<<< HEAD
           message: 'Inserted one RESIDENT'
-=======
-          message: 'Inserted one report'
->>>>>>> 1/18/19
         });
     })
     .catch(function (err) {
@@ -249,11 +197,7 @@ function createResident(req, res, next) {
 }
 
 function updatePassword(req, res, next) {
-<<<<<<< HEAD
   db.none('update residents_tbl set password=$1 where resident_id=$2',
-=======
-  db.none('update resident_tbl set password=$1 where resident_id=$2',
->>>>>>> 1/18/19
     [req.body.password, parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -265,8 +209,4 @@ function updatePassword(req, res, next) {
     .catch(function (err) {
       return next(err);
     });
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1/18/19
