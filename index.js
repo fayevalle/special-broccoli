@@ -34,6 +34,7 @@ router.get('/api/missing', db.getAllMissing);
 router.get('/api/wanted', db.getAllWanted);
 router.get('/api/puppies', db.getAllPuppies);
 
+router.get('/api/users', db.getUser);
 router.get('/api/residents/:id', db.getSingleResident);
 router.post('/api/test', db.createTest);
 

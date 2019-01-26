@@ -18,6 +18,7 @@ module.exports = {
   getAllMissing: getAllMissing,
   getAllWanted: getAllWanted,
   getAllPuppies: getAllPuppies,
+  getUser: getUser,
   getSingleResident: getSingleResident,
   createReport: createReport,
   createTransaction: createTransaction,
@@ -51,6 +52,22 @@ function getAllEvents(req, res, next) {
           status: 'success',
           data: data,
           message: 'Retrieved ALL events'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getUser(req, res, next) {
+  var email = req.params.email;
+  db.any('select password from residents_tbl where email = $email', email)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved  Users'
         });
     })
     .catch(function (err) {
@@ -120,7 +137,9 @@ function getAllPuppies(req, res, next) {
 }
 
 function createReport(req, res, next) {
-  db.none('insert into report_tbl(date, email, category, description)values(${date}, ${email}, ${category}, ${description})',
+  req.body.age = parseInt(req.body.age);
+
+  db.none('insert into report_tbl (date,email,category,description) VALUES (${date},${email},${category},${description})',
     req.body)
     .then(function () {
       res.status(200)
@@ -135,7 +154,9 @@ function createReport(req, res, next) {
 }
   
 function createTransaction(req, res, next) {
-   db.none('insert into transaction_tbl(transaction, purpose, others, date_claim, name, date_request) values (${transaction}, ${purpose}, ${others}, ${date_claim}, ${name}, ${date_request})',
+  req.body.age = parseInt(req.body.age);
+
+  db.none('insert into transaction_tbl(transaction, purpose, others, name) values (${transaction}, ${purpose}, ${others}, ${name})',
     req.body)
     .then(function () {
       res.status(200)
@@ -150,7 +171,8 @@ function createTransaction(req, res, next) {
 }
 
 function createMissing(req, res, next) {
-  db.none('insert into missing_tbl(date, email, missing_type, missing_name, missing_age, contact_number, address, description) values (${date}, ${email}, ${missing_type}, ${missing_name}, ${missing_age}, ${contact_number}, ${address}, ${description})',
+  req.body.age = parseInt(req.body.age);
+  db.none('insert into missing_tbl(date, email, missing_type, contact_number, address, description) values (${date}, ${email}, ${missing_type}, ${contact_number}, ${address}, ${description})',
     req.body)
     .then(function () {
       res.status(200)
@@ -182,7 +204,8 @@ function createTest(req, res, next) {
 }
 
 function createResident(req, res, next) {
-  db.none('insert into residents_tbl(lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password, code, status) values (${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password}, ${code}, ${status},)',
+  req.body.age = parseInt(req.body.age);
+  db.none('insert into residents_tbl(lastname, firstname, middlename, birthday, birthplace, civilstatus, housenumber, street, subdivision, barangay, city, email, contactno, password, code, status) values(${lastname}, ${firstname}, ${middlename}, ${birthday}, ${birthplace}, ${civilstatus}, ${housenumber}, ${street}, ${subdivision}, ${barangay}, ${city}, ${email}, ${contactno}, ${password}, ${code}, ${status})',
     req.body)
     .then(function () {
       res.status(200)
