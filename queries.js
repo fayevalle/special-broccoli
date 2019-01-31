@@ -5,8 +5,8 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
-//var connectionString='postgres://postgres:1234@localhost:5432/postgres'
+//var connectionString = 'postgres://wgldewicamedev:8d6d9755d8e6ceba962b9f61b8a4e4772218756930a3c4b2de8493f0428e0b8d@ec2-54-243-147-183.compute-1.amazonaws.com:5432/d68rvuaemp326g';
+var connectionString='postgres://postgres:1234@localhost:5432/postgres'
 //pgp.pg.defaults.ssl = true;
 var db = pgp(connectionString);
 
@@ -156,7 +156,7 @@ function createReport(req, res, next) {
 function createTransaction(req, res, next) {
   req.body.age = parseInt(req.body.age);
 
-  db.none('insert into transaction_tbl(transaction, purpose, others, name) values (${transaction}, ${purpose}, ${others}, ${name})',
+  db.none('insert into transaction_tbl(transaction, purpose, others, name,reference_number,user_id,date) values (${transaction}, ${purpose}, ${others}, ${name}, ${userid}, ${reference_number}, ${date})',
     req.body)
     .then(function () {
       res.status(200)
