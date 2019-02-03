@@ -139,7 +139,7 @@ function getAllPuppies(req, res, next) {
 function createReport(req, res, next) {
   req.body.age = parseInt(req.body.age);
 
-  db.none('insert into report_tbl (date,email,category,description) VALUES (${date},${email},${category},${description})',
+  db.none('insert into reports_tbl (date,email,category,description) VALUES (${date},${email},${category},${description})',
     req.body)
     .then(function () {
       res.status(200)
