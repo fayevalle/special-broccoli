@@ -122,7 +122,7 @@ function getSingleResident(req, res, next) {
     });
 }
 
-function getSingleReference: (req, res, next) {
+function getSingleReference(req, res, next) {
   var refID = parseInt(req.params.id);
   db.one('select * from transaction_tbl where reference_number = $1', refID)
     .then(function (data) {
