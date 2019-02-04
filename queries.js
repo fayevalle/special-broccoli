@@ -20,6 +20,7 @@ module.exports = {
   getAllPuppies: getAllPuppies,
   getUser: getUser,
   getSingleResident: getSingleResident,
+  getSingleReference: getSingleReference,
   createReport: createReport,
   createTransaction: createTransaction,
   createMissing: createMissing,
@@ -114,6 +115,22 @@ function getSingleResident(req, res, next) {
           status: 'success',
           data: data,
           message: 'Retrieved ONE Resident'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getSingleReference: (req, res, next) {
+  var refID = parseInt(req.params.id);
+  db.one('select * from transaction_tbl where reference_number = $1', refID)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ONE Transaction'
         });
     })
     .catch(function (err) {
