@@ -57,6 +57,7 @@ router.get('/api/puppies', db.getAllPuppies);
 router.get('/api/users', db.getUser);
 
 router.get('/api/residents/:id', db.getSingleResident);
+router.get('/api/reference/:id', db.getSingleReference);
 router.post('/api/test', db.createTest);
 
 router.post('/api/residents', db.createResident);
