@@ -141,54 +141,6 @@ function getSingleReference(req, res, next) {
     });
 }
 
-function getSingleMissing(req, res, next) {
-  var resID = parseInt(req.params.id);
-  db.one('select * from missing_tbl where id = $1', resID)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved all history in missing'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-function getSingleReport(req, res, next) {
-  var resID = parseInt(req.params.id);
-  db.one('select * from report_tbl where id = $1', resID)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved all history in Report'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-function getSingleTransaction(req, res, next) {
-  var resID = parseInt(req.params.id);
-  db.one('select * from transaction_tbl where id = $1', resID)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved all history in Transaction'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
 function getAllPuppies(req, res, next) {
   db.any('select * from admin_tbl')
     .then(function (data) {
