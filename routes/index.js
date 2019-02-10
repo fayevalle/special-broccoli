@@ -58,6 +58,9 @@ router.get('/api/users', db.getUser);
 
 router.get('/api/residents/:id', db.getSingleResident);
 router.get('/api/reference/:reference_number', db.getSingleReference);
+router.get('/api/missing/:id', db.getSingeleMissing);
+router.get('/api/report/:id', db.getSingleReport);
+router.get('/api/transaction/:id', db.getSingleTransaction);
 router.post('/api/test', db.createTest);
 
 router.post('/api/residents', db.createResident);
