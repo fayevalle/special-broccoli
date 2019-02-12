@@ -21,6 +21,7 @@ module.exports = {
   getUser: getUser,
   getSingleResident: getSingleResident,
   getSingleReference: getSingleReference,
+  getSingleEmail: getSingleEmail,
   createReport: createReport,
   createTransaction: createTransaction,
   createMissing: createMissing,
@@ -99,6 +100,22 @@ function getAllWanted(req, res, next) {
           status: 'success',
           data: data,
           message: 'Retrieved ALL wanted'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getSingleEmail(req, res, next) {
+  var resID = parseInt(req.params.id);
+  db.one('select email from residents_tbl where id = $1', resID)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ONE Email'
         });
     })
     .catch(function (err) {
